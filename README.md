@@ -1,2 +1,2 @@
 # claradelvalle.com
-Clara Del Valle Costa Rica website - since 2015
+Main repo for Claradelvalle.com website
