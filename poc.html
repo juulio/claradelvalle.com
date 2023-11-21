@@ -91,16 +91,16 @@ function handleOrientation(event) {
   // right and left movement of the device
 //   updateFieldIfNotNull('Orientation_g', event.gamma);
     if (event.gamma > 0) {
-        document.getElementById("rightLeft").innerHTML = "right";
+        document.getElementById("rightLeft").innerHTML = "&rarr;";
     } else {
-        document.getElementById("rightLeft").innerHTML = "left";
+        document.getElementById("rightLeft").innerHTML = "&larr;";
     }
 
     // forward and backward movement of the device
     if (event.beta > 0) {
-        document.getElementById("forwardBack").innerHTML = "forward";
+        document.getElementById("forwardBack").innerHTML = "&darr;";
     } else {
-        document.getElementById("forwardBack").innerHTML = "backward";
+        document.getElementById("forwardBack").innerHTML = "&uarr;";
     }
 
   incrementEventCount();
