@@ -44,9 +44,16 @@
 
     <h4 style="margin-top:0.75rem;">Orientation</h4>
     <ul>
-        <li>X-axis (&beta;): <span id="Orientation_b">0</span><span>&deg;</span></li>
-        <li>Y-axis (&gamma;): <span id="Orientation_g">0</span><span>&deg;</span></li>
-        <li>Z-axis (&alpha;): <span id="Orientation_a">0</span><span>&deg;</span></li>
+        <li>
+            X-axis (&beta;): <span id="Orientation_b">0</span><span>&deg;</span>
+            <span id="rightLeft"></span>
+        </li>
+        <li>
+            Y-axis (&gamma;): <span id="Orientation_g">0</span><span>&deg;</span>
+        </li>
+        <li>
+            Z-axis (&alpha;): <span id="Orientation_a">0</span><span>&deg;</span>
+        </li>
     </ul>
 
     <!-- <h4>Accelerometer</h4>
@@ -79,7 +86,15 @@
 function handleOrientation(event) {
   updateFieldIfNotNull('Orientation_a', event.alpha);
   updateFieldIfNotNull('Orientation_b', event.beta);
+  
+  // right and left movement of the device
   updateFieldIfNotNull('Orientation_g', event.gamma);
+    if (event.gamma > 0) {
+        document.getElementById("rightLeft").innerHTML = "right";
+    } else {
+        document.getElementById("rightLeft").innerHTML = "left";
+    }
+
   incrementEventCount();
 }
 
