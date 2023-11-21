@@ -31,6 +31,9 @@
         text-decoration: none;
         border: solid 4px red;
     }
+    .arrow{
+        font-size: 5em;
+    }
     </style>
 </head>
 
@@ -45,16 +48,16 @@
     <h4 style="margin-top:0.75rem;">Orientation</h4>
     <ul>
         <li>
-            X-axis (&beta;): <span id="Orientation_b">0</span><span>&deg;</span>
-            <span id="rightLeft"></span>
+            X-axis (&beta;): <span id="Orientation_b"></span>
+            <span id="rightLeft" class="arrow"></span>
         </li>
         <li>
-            Y-axis (&gamma;): <span id="Orientation_g">0</span><span>&deg;</span>
+            Z-axis (&alpha;): <span id="Orientation_a"></span>
+            <span id="forwardBack" class="arrow"></span>
         </li>
-        <li>
-            Z-axis (&alpha;): <span id="Orientation_a">0</span><span>&deg;</span>
-            <span id="forwardBack"></span>
-        </li>
+        <!-- <li>
+            Y-axis (&gamma;): <span id="Orientation_g"></span>
+        </li> -->
     </ul>
 
     <!-- <h4>Accelerometer</h4>
