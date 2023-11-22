@@ -1,6 +1,11 @@
 // full sensors on js demo https://sensor-js.xyz/demo.html
 import * as THREE from 'three';
 
+//----------------------------------------------------------------
+// General functionality 
+let demo_button = document.getElementById("start_demo");
+let direction = "";
+//----------------------------------------------------------------
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -17,18 +22,20 @@ camera.position.z = 5;
 
 function animate() {
 	requestAnimationFrame( animate );
-
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-
+  console.log(direction)
+  if(direction == 'derecha')
+    cube.position.x += 0.002;
+  if(direction == 'izquierda')
+    cube.position.x -= 0.002;
+  if(direction == 'adelante')
+    cube.position.y += 0.002;
+  if(direction == 'atras') 
+    cube.position.y -= 0.002;
 
 	renderer.render( scene, camera );
 }
 animate();
 
-//----------------------------------------------------------------
-// General functionality (not 3D related)
-let demo_button = document.getElementById("start_demo");
 
 //----------------------------------------------------------------
 // splashScreen functionality
@@ -71,17 +78,21 @@ demo_button.onclick = function(e) {
 
 
 function handleOrientation(event) {
-    // right and left movement of the device
-    if (event.gamma > 0) {
-        document.getElementById("rightLeft").innerHTML = "&rarr;";
-    } else {
-        document.getElementById("rightLeft").innerHTML = "&larr;";
-    }
+  // right and left movement of the device
+  if (event.gamma > 0) {
+      direction = 'derecha';
+      document.getElementById("rightLeft").innerHTML = "&rarr;";
+  } else {
+      direction = 'izquierda';
+      document.getElementById("rightLeft").innerHTML = "&larr;";
+  }
 
-    // forward and backward movement of the device
-    if (event.beta > 0) {
-        document.getElementById("forwardBack").innerHTML = "&darr;";
-    } else {
-        document.getElementById("forwardBack").innerHTML = "&uarr;";
-    }
+  // forward and backward movement of the device
+  if (event.beta > 0) {
+      direction = 'atras';
+      document.getElementById("forwardBack").innerHTML = "&darr;";
+  } else {
+      direction = 'adelante';
+      document.getElementById("forwardBack").innerHTML = "&uarr;";
+  }
 }
