@@ -33,7 +33,7 @@ let demo_button = document.getElementById("start_demo");
 //----------------------------------------------------------------
 // splashScreen functionality
 var splashScreen = document.querySelector('.splash');
-demo_button.addEventListener('click',()=>{
+splashScreen.addEventListener('touchend',()=>{
     splashScreen.style.opacity = 0;
     setTimeout(()=>{
         splashScreen.classList.add('hidden')
