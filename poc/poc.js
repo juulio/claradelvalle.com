@@ -23,23 +23,23 @@ camera.position.z = 5;
 function animate() {
 	requestAnimationFrame( animate );
   if(horizontalDirection == 'derecha' && verticalDirection == 'adelante') {
-    cube.position.x += 0.002;
-    cube.position.y += 0.002;
+    cube.position.x += 0.003;
+    cube.position.y += 0.003;
     console.log('entro al 1');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' ) {
-    cube.position.x -= 0.002;
-    cube.position.y += 0.002;
+    cube.position.x -= 0.003;
+    cube.position.y += 0.003;
     console.log('entro al 2');
   }
   if(horizontalDirection == 'derecha' && verticalDirection == 'atras' ) {
-    cube.position.x += 0.002;
-    cube.position.y -= 0.002;
+    cube.position.x += 0.003;
+    cube.position.y -= 0.003;
     console.log('entro al 3');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )   {
-    cube.position.x -= 0.002;
-    cube.position.y -= 0.002;
+    cube.position.x -= 0.003;
+    cube.position.y -= 0.003;
     console.log('entro al 4');
   }
 	renderer.render( scene, camera );
