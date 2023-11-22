@@ -22,22 +22,22 @@ camera.position.z = 5;
 
 function animate() {
 	requestAnimationFrame( animate );
-  if(horizontalDirection == 'derecha' && verticalDirection == 'adelante')
+  if(horizontalDirection == 'derecha' && verticalDirection == 'adelante') {
     cube.position.x += 0.002;
-    cube.position.y -= 0.002;
-
-  if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' )
+    cube.position.y += 0.002;
+  }
+  if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' ) {
     cube.position.x -= 0.002;
-    cube.position.y -= 0.002;
-
-  if(horizontalDirection == 'derecha' && verticalDirection == 'atras' )
+    cube.position.y += 0.002;
+  }
+  if(horizontalDirection == 'derecha' && verticalDirection == 'atras' ) {
   cube.position.x += 0.002;
   cube.position.y -= 0.002;
-  
-  if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )  
+  }
+  if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )   {
   cube.position.x -= 0.002;
   cube.position.y -= 0.002;
-
+  }
 	renderer.render( scene, camera );
 }
 animate();
