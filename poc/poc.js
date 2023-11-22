@@ -1,56 +1,45 @@
+// full sensors on js demo https://sensor-js.xyz/demo.html
+import * as THREE from 'three';
 
-function handleOrientation(event) {
-//   updateFieldIfNotNull('Orientation_a', event.alpha);
-//   updateFieldIfNotNull('Orientation_b', event.beta);
-  
-  // right and left movement of the device
-//   updateFieldIfNotNull('Orientation_g', event.gamma);
-    if (event.gamma > 0) {
-        document.getElementById("rightLeft").innerHTML = "&rarr;";
-    } else {
-        document.getElementById("rightLeft").innerHTML = "&larr;";
-    }
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-    // forward and backward movement of the device
-    if (event.beta > 0) {
-        document.getElementById("forwardBack").innerHTML = "&darr;";
-    } else {
-        document.getElementById("forwardBack").innerHTML = "&uarr;";
-    }
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
 
-  // incrementEventCount();
+const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+camera.position.z = 5;
+
+function animate() {
+	requestAnimationFrame( animate );
+
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+
+	renderer.render( scene, camera );
 }
+animate();
+//----------------------------------------------------------------
+// splashScreen functionality
+var splashScreen = document.querySelector('.splash');
+splashScreen.addEventListener('click',()=>{
+    splashScreen.style.opacity = 0;
+    setTimeout(()=>{
+        splashScreen.classList.add('hidden')
+    },610)
+})
 
-// function incrementEventCount(){
-//   let counterElement = document.getElementById("num-observed-events")
-//   let eventCount = parseInt(counterElement.innerHTML)
-//   counterElement.innerHTML = eventCount + 1;
-// }
-
-function updateFieldIfNotNull(fieldName, value, precision=10){
-  if (value != null)
-    document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-}
-
-function handleMotion(event) {
-  updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
-  updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
-  updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
-
-  updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
-  updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
-  updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
-
-  updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
-
-  updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
-  updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
-  updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
-  incrementEventCount();
-}
-
+//----------------------------------------------------------------
+// Sensors functionality
 let is_running = false;
 let demo_button = document.getElementById("start_demo");
+
 demo_button.onclick = function(e) {
   e.preventDefault();
   
@@ -63,37 +52,32 @@ demo_button.onclick = function(e) {
   }
   
   if (is_running){
-    window.removeEventListener("devicemotion", handleMotion);
     window.removeEventListener("deviceorientation", handleOrientation);
     demo_button.innerHTML = "Start demo";
     demo_button.classList.add('btn-success');
     demo_button.classList.remove('btn-danger');
     is_running = false;
   }else{
-    window.addEventListener("devicemotion", handleMotion);
     window.addEventListener("deviceorientation", handleOrientation);
-    document.getElementById("start_demo").innerHTML = "Stop demo";
     demo_button.classList.remove('btn-success');
     demo_button.classList.add('btn-danger');
     is_running = true;
   }
 };
 
-/*
-Light and proximity are not supported anymore by mainstream browsers.
-window.addEventListener('devicelight', function(e) {
-   document.getElementById("DeviceLight").innerHTML="AmbientLight current Value: "+e.value+" Max: "+e.max+" Min: "+e.min;
-});
 
-window.addEventListener('lightlevel', function(e) {
-   document.getElementById("Lightlevel").innerHTML="Light level: "+e.value;
-});
+function handleOrientation(event) {
+    // right and left movement of the device
+    if (event.gamma > 0) {
+        document.getElementById("rightLeft").innerHTML = "&rarr;";
+    } else {
+        document.getElementById("rightLeft").innerHTML = "&larr;";
+    }
 
-window.addEventListener('deviceproximity', function(e) {
-   document.getElementById("DeviceProximity").innerHTML="DeviceProximity current Value: "+e.value+" Max: "+e.max+" Min: "+e.min;
-});
-
-window.addEventListener('userproximity', function(event) {
-   document.getElementById("UserProximity").innerHTML="UserProximity: "+event.near;
-});
-*/
+    // forward and backward movement of the device
+    if (event.beta > 0) {
+        document.getElementById("forwardBack").innerHTML = "&darr;";
+    } else {
+        document.getElementById("forwardBack").innerHTML = "&uarr;";
+    }
+}

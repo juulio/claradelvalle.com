@@ -1,9 +1,43 @@
 body {
-
     margin: 0;
     background-color: #6c757d;
     font-family: sans-serif;
 }
+
+.splash{
+    cursor : pointer;
+    position : fixed;
+    top : 50%;
+    left : 50%;
+    height : 100%;
+    width : 100%;
+    color: black;
+    transform : translate(-50%,-50%);    
+    background-color: rgba(0,0,0, 0.9);
+    transition : all ease-in-out 600ms;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn {
+    width: 60%;
+    padding: 10vw;
+    margin: 0 auto;
+    display: block;
+    font-size: 1.2em;
+    text-align: center;
+    background: white;
+    text-decoration: none;
+    border: solid 4px red;
+}
+
+
+.hidden{
+    transition : 0.5s;
+    display : none;
+}
+
 #demo-div {
 
     color: lightgrey;
@@ -28,16 +62,7 @@ h4 {
     margin-bottom: 0.66rem;
 }
 
-.btn {
-    color: black;
-    padding: 1em;
-    display: block;
-    text-align: center;
-    font-size: 1.2em;
-    background: white;
-    text-decoration: none;
-    border: solid 4px red;
-}
+
 
 li {
     font-size: 1.5em;

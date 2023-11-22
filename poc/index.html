@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JavaScript Sensor Access Demo</title>
+    <title>Labyrinth POC</title>
     <link rel="stylesheet" href="poc.css">
 </head>
 
@@ -11,7 +11,6 @@
 <main role="main" class="container">
 
 <div class="p-3 mb-2 bg-secondary" id="demo-div">
-    <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
     <!-- <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p> -->
 
 
@@ -51,7 +50,14 @@
         <li>Y-axis: <span id="Gyroscope_y">0</span><span>&deg;/s</span></li>
         <li>Z-axis: <span id="Gyroscope_z">0</span><span>&deg;/s</span></li>
     </ul> -->
-    <script src="poc.js"></script>
+
+    <!-- Splash Screen code starts here  -->
+    <div class="splash">
+        <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Touch to Begin</a>
+    </div>
+    <!-- Splash Screen code ends here  -->
+
+    <script type="module" src="/poc.js"></script>
 </div>
 </main>
 </body>
