@@ -25,10 +25,15 @@ function animate() {
 	renderer.render( scene, camera );
 }
 animate();
+
+//----------------------------------------------------------------
+// General functionality (not 3D related)
+let demo_button = document.getElementById("start_demo");
+
 //----------------------------------------------------------------
 // splashScreen functionality
 var splashScreen = document.querySelector('.splash');
-splashScreen.addEventListener('click',()=>{
+demo_button.addEventListener('click',()=>{
     splashScreen.style.opacity = 0;
     setTimeout(()=>{
         splashScreen.classList.add('hidden')
@@ -38,7 +43,6 @@ splashScreen.addEventListener('click',()=>{
 //----------------------------------------------------------------
 // Sensors functionality
 let is_running = false;
-let demo_button = document.getElementById("start_demo");
 
 demo_button.onclick = function(e) {
   e.preventDefault();
