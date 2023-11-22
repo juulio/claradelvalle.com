@@ -1,94 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JavaScript Sensor Access Demo</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #6c757d;
-            font-family: sans-serif;
-        }
-        #demo-div {
-            color: lightgrey;
-            border-radius: 0.3rem;
-            width: 70%;
-            margin: 0 auto;
-        }
-      #demo-div span, #demo-div #num-observed-events {color: black;}
-      h1 {margin-top: 0.5rem;}
-      h4 {margin-top: 0.66rem; font-size:1.33rem;}
-      #demo-div li {line-height: 21px;}
-      #demo-div ul {margin-bottom: 0.66rem;}
-    .btn {
-        color: black;
-        padding: 1em;
-        display: block;
-        text-align: center;
-        font-size: 1.2em;
-        background: white;
-        text-decoration: none;
-        border: solid 4px red;
-    }
-    li {
-        font-size: 1.5em;
-        margin-top: 3em;
-        margin-bottom: 3em;
-    }
-    </style>
-</head>
 
-<body>
-<main role="main" class="container">
-
-<div class="p-3 mb-2 bg-secondary" id="demo-div">
-    <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
-    <!-- <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p> -->
-
-
-    <h4 style="margin-top:0.75rem;">Orientation</h4>
-    <ul>
-        <li>
-            X-axis (&beta;): <span id="Orientation_b"></span>
-            <span id="rightLeft" class="arrow"></span>
-        </li>
-        <li>
-            Z-axis (&alpha;): <span id="Orientation_a"></span>
-            <span id="forwardBack" class="arrow"></span>
-        </li>
-        <!-- <li>
-            Y-axis (&gamma;): <span id="Orientation_g"></span>
-        </li> -->
-    </ul>
-
-    <!-- <h4>Accelerometer</h4>
-    <ul>
-        <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
-        <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
-        <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
-    <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-    </ul>
-
-    <h4>Accelerometer including gravity</h4>
-
-    <ul>
-        <li>X-axis: <span id="Accelerometer_gx">0</span><span> m/s<sup>2</sup></span></li>
-        <li>Y-axis: <span id="Accelerometer_gy">0</span><span> m/s<sup>2</sup></span></li>
-        <li>Z-axis: <span id="Accelerometer_gz">0</span><span> m/s<sup>2</sup></span></li>
-    </ul>
-
-    <h4>Gyroscope</h4>
-    <ul>
-        <li>X-axis: <span id="Gyroscope_x">0</span><span>&deg;/s</span></li>
-        <li>Y-axis: <span id="Gyroscope_y">0</span><span>&deg;/s</span></li>
-        <li>Z-axis: <span id="Gyroscope_z">0</span><span>&deg;/s</span></li>
-    </ul> -->
-
-</div>
-</main>
-
-<script>
 function handleOrientation(event) {
 //   updateFieldIfNotNull('Orientation_a', event.alpha);
 //   updateFieldIfNotNull('Orientation_b', event.beta);
@@ -108,14 +18,14 @@ function handleOrientation(event) {
         document.getElementById("forwardBack").innerHTML = "&uarr;";
     }
 
-  incrementEventCount();
+  // incrementEventCount();
 }
 
-function incrementEventCount(){
-  let counterElement = document.getElementById("num-observed-events")
-  let eventCount = parseInt(counterElement.innerHTML)
-  counterElement.innerHTML = eventCount + 1;
-}
+// function incrementEventCount(){
+//   let counterElement = document.getElementById("num-observed-events")
+//   let eventCount = parseInt(counterElement.innerHTML)
+//   counterElement.innerHTML = eventCount + 1;
+// }
 
 function updateFieldIfNotNull(fieldName, value, precision=10){
   if (value != null)
@@ -187,7 +97,3 @@ window.addEventListener('userproximity', function(event) {
    document.getElementById("UserProximity").innerHTML="UserProximity: "+event.near;
 });
 */
-
-</script>
-</body>
-</html>
