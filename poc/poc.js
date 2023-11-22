@@ -4,7 +4,7 @@ import * as THREE from 'three';
 //----------------------------------------------------------------
 // General functionality 
 let demo_button = document.getElementById("start_demo");
-let direction = "";
+let horizontalDirection, verticalDirection;
 //----------------------------------------------------------------
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -22,15 +22,21 @@ camera.position.z = 5;
 
 function animate() {
 	requestAnimationFrame( animate );
-  console.log(direction)
-  if(direction == 'derecha')
+  if(horizontalDirection == 'derecha' && verticalDirection == 'adelante')
     cube.position.x += 0.002;
-  if(direction == 'izquierda')
-    cube.position.x -= 0.002;
-  if(direction == 'adelante')
-    cube.position.y += 0.002;
-  if(direction == 'atras') 
     cube.position.y -= 0.002;
+
+  if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' )
+    cube.position.x -= 0.002;
+    cube.position.y -= 0.002;
+
+  if(horizontalDirection == 'derecha' && verticalDirection == 'atras' )
+  cube.position.x += 0.002;
+  cube.position.y -= 0.002;
+  
+  if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )  
+  cube.position.x -= 0.002;
+  cube.position.y -= 0.002;
 
 	renderer.render( scene, camera );
 }
@@ -80,19 +86,19 @@ demo_button.onclick = function(e) {
 function handleOrientation(event) {
   // right and left movement of the device
   if (event.gamma > 0) {
-      direction = 'derecha';
+      horizontalDirection = 'derecha';
       document.getElementById("rightLeft").innerHTML = "&rarr;";
   } else {
-      direction = 'izquierda';
+      horizontalDirection = 'izquierda';
       document.getElementById("rightLeft").innerHTML = "&larr;";
   }
 
   // forward and backward movement of the device
   if (event.beta > 0) {
-      direction = 'atras';
+      verticalDirection = 'atras';
       document.getElementById("forwardBack").innerHTML = "&darr;";
   } else {
-      direction = 'adelante';
+      verticalDirection = 'adelante';
       document.getElementById("forwardBack").innerHTML = "&uarr;";
   }
 }
