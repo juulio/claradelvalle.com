@@ -5,6 +5,8 @@ import * as THREE from 'three';
 // General functionality 
 let demo_button = document.getElementById("start_demo");
 let horizontalDirection, verticalDirection;
+let horizontalAcceleration = 0;
+let verticalAcceleration = 0;
 //----------------------------------------------------------------
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -23,22 +25,22 @@ camera.position.z = 5;
 function animate() {
 	requestAnimationFrame( animate );
   if(horizontalDirection == 'derecha' && verticalDirection == 'adelante') {
-    cube.position.x += 0.003;
+    cube.position.x += 0.003*horizontalAcceleration;
     cube.position.y += 0.003;
     console.log('entro al 1');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' ) {
-    cube.position.x -= 0.003;
+    cube.position.x -= 0.003*horizontalAcceleration;
     cube.position.y += 0.003;
-    console.log('entro al 2');
+    console.log('CubePosX: ', cube.position.x);
   }
   if(horizontalDirection == 'derecha' && verticalDirection == 'atras' ) {
-    cube.position.x += 0.003;
+    cube.position.x += 0.003*horizontalAcceleration;
     cube.position.y -= 0.003;
     console.log('entro al 3');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )   {
-    cube.position.x -= 0.003;
+    cube.position.x -= 0.003*horizontalAcceleration;
     cube.position.y -= 0.003;
     console.log('entro al 4');
   }
@@ -88,6 +90,9 @@ demo_button.onclick = function(e) {
 
 
 function handleOrientation(event) {
+  horizontalAcceleration = event.gamma;
+  verticalAcceleration = event.beta;
+
   // right and left movement of the device
   if (event.gamma > 0) {
       horizontalDirection = 'derecha';
