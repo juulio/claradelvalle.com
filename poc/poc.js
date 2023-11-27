@@ -25,24 +25,24 @@ camera.position.z = 5;
 function animate() {
 	requestAnimationFrame( animate );
   if(horizontalDirection == 'derecha' && verticalDirection == 'adelante') {
-    cube.position.x += 0.003*horizontalAcceleration / 90;
+    cube.position.x += 0.003*horizontalAcceleration / 70;
     cube.position.y += 0.003;
-    console.log('entro al 1');
+    // console.log('entro al 1');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' ) {
-    cube.position.x -= 0.003*horizontalAcceleration / 90;
+    cube.position.x -= 0.003*horizontalAcceleration / 70;
     cube.position.y += 0.003;
-    console.log('CubePosX: ', cube.position.x);
+    // console.log('CubePosX: ', cube.position.x);
   }
   if(horizontalDirection == 'derecha' && verticalDirection == 'atras' ) {
-    cube.position.x += 0.003*verticalAcceleration / 90;
+    cube.position.x += 0.003*verticalAcceleration / 70;
     cube.position.y -= 0.003;
-    console.log('entro al 3');
+    // console.log('entro al 3');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )   {
-    cube.position.x -= 0.003*verticalAcceleration / 90;
+    cube.position.x -= 0.003*verticalAcceleration / 70;
     cube.position.y -= 0.003;
-    console.log('entro al 4');
+    // console.log('entro al 4');
   }
 	renderer.render( scene, camera );
 }
@@ -93,21 +93,27 @@ function handleOrientation(event) {
   horizontalAcceleration = event.gamma;
   verticalAcceleration = event.beta;
 
+  console.log('horizontalAcceleration: ', horizontalAcceleration);
+  console.log('verticalAcceleration: ', verticalAcceleration);
   // right and left movement of the device
   if (event.gamma > 0) {
       horizontalDirection = 'derecha';
       document.getElementById("rightLeft").innerHTML = "&rarr;";
+      // document.getElementById("rightLeft").innerHTML = "&rarr;";
   } else {
       horizontalDirection = 'izquierda';
       document.getElementById("rightLeft").innerHTML = "&larr;";
+      // document.getElementById("rightLeft").innerHTML = "&larr;";
   }
 
   // forward and backward movement of the device
   if (event.beta > 0) {
       verticalDirection = 'atras';
       document.getElementById("forwardBack").innerHTML = "&darr;";
+      // document.getElementById("forwardBack").innerHTML = "&darr;";
   } else {
       verticalDirection = 'adelante';
       document.getElementById("forwardBack").innerHTML = "&uarr;";
+      // document.getElementById("forwardBack").innerHTML = "&uarr;";
   }
 }
