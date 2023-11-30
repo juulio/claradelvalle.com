@@ -32,7 +32,7 @@ demo_button.onclick = function(e) {
   ) {
     DeviceMotionEvent.requestPermission();
   }
-  
+
   window.addEventListener("deviceorientation", handleOrientation);
   demo_button.classList.remove('btn-success');
   demo_button.classList.add('btn-danger');
@@ -46,8 +46,8 @@ function handleOrientation(event) {
 
   console.log('GAMMA: '+ event.gamma + '  - horizontalAcceleration: ', horizontalAcceleration);
   console.log('BETA: '+ event.beta + '  - verticalAcceleration: ', verticalAcceleration);
-  gamma.innerHTML = event.gamma;
-  beta.innerHTML = event.beta;
+  gamma.innerHTML = Math.round(event.gamma * 100) / 100;
+  beta.innerHTML = Math.round(event.beta * 100) / 100;
 
   // right and left movement of the device
   if (event.gamma > 0) {
