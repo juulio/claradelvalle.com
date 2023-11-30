@@ -2,6 +2,8 @@
 //----------------------------------------------------------------
 // General functionality 
 let demo_button = document.getElementById("start_demo");
+const beta = document.getElementById("Orientation_b");
+const gamma = document.getElementById("Orientation_g");
 let horizontalDirection, verticalDirection;
 let horizontalAcceleration = 0;
 let verticalAcceleration = 0;
@@ -31,18 +33,10 @@ demo_button.onclick = function(e) {
     DeviceMotionEvent.requestPermission();
   }
   
-  if (is_running){
-    window.removeEventListener("deviceorientation", handleOrientation);
-    demo_button.innerHTML = "Start demo";
-    demo_button.classList.add('btn-success');
-    demo_button.classList.remove('btn-danger');
-    is_running = false;
-  }else{
-    window.addEventListener("deviceorientation", handleOrientation);
-    demo_button.classList.remove('btn-success');
-    demo_button.classList.add('btn-danger');
-    is_running = true;
-  }
+  window.addEventListener("deviceorientation", handleOrientation);
+  demo_button.classList.remove('btn-success');
+  demo_button.classList.add('btn-danger');
+  is_running = true;
 };
 
 
@@ -52,6 +46,9 @@ function handleOrientation(event) {
 
   console.log('GAMMA: '+ event.gamma + '  - horizontalAcceleration: ', horizontalAcceleration);
   console.log('BETA: '+ event.beta + '  - verticalAcceleration: ', verticalAcceleration);
+  gamma.innerHTML = event.gamma;
+  beta.innerHTML = event.beta;
+
   // right and left movement of the device
   if (event.gamma > 0) {
       horizontalDirection = 'derecha';
