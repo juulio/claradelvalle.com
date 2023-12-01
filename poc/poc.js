@@ -27,12 +27,14 @@ function animate() {
   if(horizontalDirection == 'derecha' && verticalDirection == 'adelante') {
     cube.position.x += 0.003*horizontalAcceleration/20;
     cube.position.y += 0.003*verticalAcceleration/20;
-    // console.log('entro al 1');
+    // console.log('adelante');
   }
   if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' ) {
     cube.position.x += 0.003*horizontalAcceleration/20;
     cube.position.y += 0.003*verticalAcceleration/20;
     // console.log('CubePosX: ', cube.position.x);
+    // console.log('adelante');
+
   }
   if(horizontalDirection == 'derecha' && verticalDirection == 'atras' ) {
     cube.position.x += 0.003*horizontalAcceleration/20;
@@ -105,10 +107,10 @@ function handleOrientation(event) {
 
   // forward and backward movement of the device
   if (event.beta > 0) {
-      verticalDirection = 'atras';
+      verticalDirection = 'adelante';
       document.getElementById("forwardBack").innerHTML = "&darr;";
   } else {
-      verticalDirection = 'adelante';
+      verticalDirection = 'atras';
       document.getElementById("forwardBack").innerHTML = "&uarr;";
   }
 }
