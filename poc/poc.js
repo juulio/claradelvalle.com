@@ -4,7 +4,6 @@ import * as THREE from 'three';
 //----------------------------------------------------------------
 // General functionality 
 let demo_button = document.getElementById("start_demo");
-let horizontalDirection, verticalDirection;
 let horizontalAcceleration = 0;
 let verticalAcceleration = 0;
 //----------------------------------------------------------------
@@ -24,28 +23,10 @@ camera.position.z = 5;
 
 function animate() {
 	requestAnimationFrame( animate );
-  if(horizontalDirection == 'derecha' && verticalDirection == 'adelante') {
-    cube.position.x += 0.003*horizontalAcceleration/20;
-    cube.position.y += 0.003*verticalAcceleration/20;
-    // console.log('adelante');
-  }
-  if(horizontalDirection == 'izquierda' && verticalDirection == 'adelante' ) {
-    cube.position.x += 0.003*horizontalAcceleration/20;
-    cube.position.y += 0.003*verticalAcceleration/20;
-    // console.log('CubePosX: ', cube.position.x);
-    // console.log('adelante');
 
-  }
-  if(horizontalDirection == 'derecha' && verticalDirection == 'atras' ) {
-    cube.position.x += 0.003*horizontalAcceleration/20;
-    cube.position.y += 0.003*verticalAcceleration/20;
-    // console.log('entro al 3');
-  }
-  if(horizontalDirection == 'izquierda' && verticalDirection == 'atras' )   {
-    cube.position.x += 0.003*horizontalAcceleration/20;
-    cube.position.y += 0.003*verticalAcceleration/20;
-    // console.log('entro al 4');
-  }
+  cube.position.x += 0.001*horizontalAcceleration;
+  cube.position.y -= 0.001*verticalAcceleration;
+ 
 	renderer.render( scene, camera );
 }
 animate();
@@ -95,22 +76,18 @@ function handleOrientation(event) {
   horizontalAcceleration = event.gamma;
   verticalAcceleration = event.beta;
 
-  console.log('x Acc: ', horizontalAcceleration + '  y Acc: ', verticalAcceleration);
+  // console.log('x Acc: ', horizontalAcceleration + '  y Acc: ', verticalAcceleration);
   // right and left movement of the device
   if (event.gamma > 0) {
-      horizontalDirection = 'derecha';
       document.getElementById("rightLeft").innerHTML = "&rarr;";
   } else {
-      horizontalDirection = 'izquierda';
       document.getElementById("rightLeft").innerHTML = "&larr;";
   }
 
   // forward and backward movement of the device
   if (event.beta > 0) {
-      verticalDirection = 'adelante';
       document.getElementById("forwardBack").innerHTML = "&darr;";
   } else {
-      verticalDirection = 'atras';
       document.getElementById("forwardBack").innerHTML = "&uarr;";
   }
 }
