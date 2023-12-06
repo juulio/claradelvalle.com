@@ -1,6 +1,5 @@
-// full sensors on js demo https://sensor-js.xyz/demo.html
 import * as THREE from 'three';
-
+import * as UTILS from './modules/utils';
 //----------------------------------------------------------------
 // General functionality 
 const demo_button = document.getElementById("start_demo");
@@ -20,26 +19,7 @@ document.body.appendChild( renderer.domElement );
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 //----------------------------------------------------------------
 
-const translate2dTo3d = (posX, posY) => {
-  var vec = new THREE.Vector3();
-  var pos = new THREE.Vector3();
 
-  // calculate position in normalized device coordinates (-1 to +1) for both components
-  vec.set(
-      ( posX / window.innerWidth ) * 2 - 1,
-      - ( posY / window.innerHeight ) * 2 + 1,
-      0.5 );
-
-  vec.unproject( camera );
-
-  vec.sub( camera.position ).normalize();
-
-  var distance = - camera.position.z / vec.z;
-
-  pos.copy( camera.position ).add( vec.multiplyScalar( distance ) );
-  // console.log("translated: (" + posX + ", " + posY + ") to (" + pos.x + ", " + pos.y + ")");
-  return pos;
-}
 
 //----------------------------------------------------------------
 const geometry = new THREE.BoxGeometry( 0.4, 0.4, 0.4 );
