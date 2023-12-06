@@ -16,16 +16,6 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-// const vector = new THREE.Vector3(0, 3.8, 0);
-// vector.project(camera);
-// vector.x = Math.round((0.5 + vector.x / 2) * (renderer.domElement.width / window.devicePixelRatio));
-// vector.y = Math.round((0.5 - vector.y / 2) * (renderer.domElement.height / window.devicePixelRatio));
-
-// console.log("Canvas width: " + renderer.domElement.width);
-// console.log("Canvas height: " +  renderer.domElement.height);
-// console.log("V: " + vector.x + " " + vector.y);
-
-
 // This material is used in all cubes, for the POC
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 //----------------------------------------------------------------
@@ -47,7 +37,7 @@ const translate2dTo3d = (posX, posY) => {
   var distance = - camera.position.z / vec.z;
 
   pos.copy( camera.position ).add( vec.multiplyScalar( distance ) );
-  console.log("translated: (" + posX + ", " + posY + ") to (" + pos.x + ", " + pos.y + ")");
+  // console.log("translated: (" + posX + ", " + posY + ") to (" + pos.x + ", " + pos.y + ")");
   return pos;
 }
 
