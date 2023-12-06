@@ -45,18 +45,6 @@ body {
     color: lightgrey;
 }
 
-#demo-div p {
-    margin: 0;
-}
-
-h1 {
-    margin-top: 0.5rem;
-}
-
-h4 {
-    margin-top: 0.66rem; font-size:1.33rem;
-}
-
 span {
     margin-right: 1.5em;
     font-size: 2.5em;
