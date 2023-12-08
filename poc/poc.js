@@ -58,8 +58,8 @@ function handleOrientation(event) {
 
 
 const setScreenEdges = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
-  const topLeft = translate2dTo3d(0, 0);
-  const bottomRight = translate2dTo3d(SCREEN_WIDTH, SCREEN_HEIGHT);
+  const topLeft = utils.translate2dTo3d(0, 0);
+  const bottomRight = utils.translate2dTo3d(SCREEN_WIDTH, SCREEN_HEIGHT);
 
   // 4 GAME AREA EDGES
   const topBottomEdgeGeometry = new THREE.BoxGeometry( bottomRight.x*2, 0.1, 0.1 );
