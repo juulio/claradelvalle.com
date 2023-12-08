@@ -1,5 +1,7 @@
 import * as THREE from 'three';
-import * as UTILS from './modules/utils';
+import Utils from './modules/utils';
+
+let utils, renderer, camera, cube, material, scene;
 //----------------------------------------------------------------
 // General functionality 
 const demo_button = document.getElementById("start_demo");
@@ -8,25 +10,7 @@ const splashScreen = document.querySelector('.splash');
 let horizontalAcceleration = 0;
 let verticalAcceleration = 0;
 //----------------------------------------------------------------
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
-
-// This material is used in all cubes, for the POC
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//----------------------------------------------------------------
-
-
-
-//----------------------------------------------------------------
-const geometry = new THREE.BoxGeometry( 0.4, 0.4, 0.4 );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-camera.position.z = 5;
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -71,15 +55,7 @@ function handleOrientation(event) {
   // console.log('x Acc: ', horizontalAcceleration + '  y Acc: ', verticalAcceleration);
 }
 
-//----------------------------------------------------------------
-// Resize functionality
-const onWindowResize = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
-  renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT); 
-  camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
-  camera.updateProjectionMatrix();
 
-  renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
-}
 
 const setScreenEdges = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
   const topLeft = translate2dTo3d(0, 0);
@@ -107,6 +83,25 @@ const setScreenEdges = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
 }
 
 const init = () => {
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild( renderer.domElement );
+
+  // This material is used in all cubes, for the POC
+  material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+  const geometry = new THREE.BoxGeometry( 0.4, 0.4, 0.4 );
+  cube = new THREE.Mesh( geometry, material );
+  scene.add( cube );
+
+  camera.position.z = 5;
+
+  utils = new Utils(camera);
+  let a = utils.translate2dTo3d(scene);
+  
   const SCREEN_WIDTH = window.innerWidth;
   const SCREEN_HEIGHT = window.innerHeight;
 
@@ -121,6 +116,16 @@ const init = () => {
   
   onWindowResize(SCREEN_WIDTH, SCREEN_HEIGHT);
   animate();
+}
+
+//----------------------------------------------------------------
+// Resize functionality
+const onWindowResize = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
+  renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT); 
+  camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
 }
 
 init();

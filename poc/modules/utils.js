@@ -1,10 +1,11 @@
-import {  Vector3, Camera } from "three";
+import {  Vector3 } from "three";
 
 /**
  * General utility functions
  */
 export default class Utils {
-	constructor(position, radius, segments) {
+	constructor(camera) {
+        this.camera = camera;
     }
 
     /**
@@ -45,14 +46,13 @@ export default class Utils {
             ( posX / window.innerWidth ) * 2 - 1,
             - ( posY / window.innerHeight ) * 2 + 1,
             0.5 );
+        vec.unproject( this.camera );
     
-        vec.unproject( camera );
+        vec.sub( this.camera.position ).normalize();
     
-        vec.sub( camera.position ).normalize();
+        var distance = - this.camera.position.z / vec.z;
     
-        var distance = - camera.position.z / vec.z;
-    
-        pos.copy( camera.position ).add( vec.multiplyScalar( distance ) );
+        pos.copy( this.camera.position ).add( vec.multiplyScalar( distance ) );
         // console.log("translated: (" + posX + ", " + posY + ") to (" + pos.x + ", " + pos.y + ")");
         return pos;
     }
