@@ -1,7 +1,10 @@
 import * as THREE from 'three';
 import Utils from './modules/utils';
+import ParticleSystem from './modules/particleSystem';
 
 let utils, renderer, camera, cube, material, scene;
+let particleSystem, particleSystemPosX, particleSystemPosY, particleSystemPosZ, showParticleSystem;
+
 //----------------------------------------------------------------
 // General functionality 
 const demo_button = document.getElementById("start_demo");
@@ -25,6 +28,9 @@ function animate() {
   cube.position.x += 0.001*horizontalAcceleration;
   cube.position.y -= 0.001*verticalAcceleration;
  
+  // scene.add(particleSystem.addParticle());
+	particleSystem.run();
+
 	renderer.render( scene, camera );
 }
 
@@ -100,11 +106,13 @@ const init = () => {
   camera.position.z = 5;
 
   utils = new Utils(camera);
-  let a = utils.translate2dTo3d(scene);
   
   const SCREEN_WIDTH = window.innerWidth;
   const SCREEN_HEIGHT = window.innerHeight;
 
+	particleSystem = new ParticleSystem(new THREE.Vector3(0, 0, 0), 0.3);
+  scene.add(particleSystem.addParticle());
+  
   window.addEventListener( 'resize', onWindowResize, false );
   
   // splashScreen functionality
