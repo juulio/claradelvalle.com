@@ -1,12 +1,14 @@
 import { Vector3, Mesh, SphereGeometry, MeshBasicMaterial, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter, Clock } from "three";
 
 import lavaTileAsset from '../images/lavatile.jpg';
+const SCREEN_WIDTH = window.innerWidth;
+const SCREEN_HEIGHT = window.innerHeight;
+
 export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
-        this.vel = new Vector3(0.2, 0.3, 0.1);
-        this.acc = new Vector3(0.1, 0.2, 0);
-        this.lifespan = 1;
+        this.vel = new Vector3(0, 0, 0);
+        this.acc = new Vector3(0, 0, 0);
         this.radius = radius;
 
         const texture = new TextureLoader().load(lavaTileAsset, (texture) => {
@@ -36,10 +38,6 @@ export default class Particle {
     //     this.shaderMaterial.uniforms.uTime.value = this.clock.getElapsedTime();
     // }
 
-    isDead() {
-        return this.pos.y < 0;
-    }
-
     /**
      * @param {THREE.Vec2} force
      */
@@ -52,10 +50,26 @@ export default class Particle {
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.set(0, 0, 0);
-        this.lifespan -= 0.1;
-        // console.log(this.particleMesh.material.opacity  + " -> " + this.lifespan);
-        this.particleMesh.material.opacity = this.lifespan;
         this.particleMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
         // this.updateTimeUniform();
+    }
+
+    checkEdges(){
+        if (this.pos.x - this.radius < 0) {
+            this.pos.x = this.radius; // Prevent from leaving the canvas from the left side
+            this.vel.x *= -1;
+          } else if (this.pos.x + this.radius > SCREEN_WIDTH) {
+            this.pos.x = SCREEN_WIDTH - this.radius; // Prevent from leaving the canvas from the right side
+            this.vel.x *= -1;
+          }
+      
+          if (this.pos.y - this.radius < 0) {
+              console.log("top");
+            this.pos.y = this.radius; // Prevent from leaving the canvas from the top
+            this.vel.y *= -1;
+          } else if (this.pos.y + this.radius > SCREEN_HEIGHT) {
+            this.pos.y = SCREEN_HEIGHT - this.radius; // Prevent from leaving the canvas from the bottom
+            this.vel.y *= -1;
+          }
     }
 }

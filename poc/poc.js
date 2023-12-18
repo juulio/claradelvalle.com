@@ -1,28 +1,23 @@
 import * as THREE from 'three';
 import Utils from './modules/utils';
 import ParticleSystem from './modules/particleSystem';
+import Stats from 'three/examples/jsm/libs/stats.module'
 
-let utils, renderer, camera, scene;
+let utils, renderer, camera, material, scene;
 let particleSystem, particleSystemPosX, particleSystemPosY, particleSystemPosZ, showParticleSystem;
 
 //----------------------------------------------------------------
 // General functionality 
 const demo_button = document.getElementById("start_demo");
 const splashScreen = document.querySelector('.splash');
+const stats = new Stats();
 
 let horizontalAcceleration = 0;
 let verticalAcceleration = 0;
 //----------------------------------------------------------------
 
 
-function animate() {
-	requestAnimationFrame( animate );
- 
-  // scene.add(particleSystem.addParticle());
-	particleSystem.run(horizontalAcceleration, verticalAcceleration);
 
-	renderer.render( scene, camera );
-}
 
 //----------------------------------------------------------------
 // Sensors functionality
@@ -78,6 +73,17 @@ const setScreenEdges = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
 
 }
 
+function animate() {
+	requestAnimationFrame( animate );
+ 
+  // scene.add(particleSystem.addParticle());
+	particleSystem.run(horizontalAcceleration, verticalAcceleration);
+
+	renderer.render( scene, camera );
+
+  stats.update()
+}
+
 const init = () => {
   const SCREEN_WIDTH = window.innerWidth;
   const SCREEN_HEIGHT = window.innerHeight;
@@ -90,8 +96,13 @@ const init = () => {
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
 
+  material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+
   utils = new Utils(camera);
   
+  // stats = new Stats()
+  document.body.appendChild(stats.dom)
   
 	particleSystem = new ParticleSystem(new THREE.Vector3(0, 0, 0), 0.3);
   scene.add(particleSystem.addParticle());
@@ -118,5 +129,8 @@ const onWindowResize = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
 
   renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
 }
+
+
+
 
 init();
