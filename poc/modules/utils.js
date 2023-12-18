@@ -38,8 +38,8 @@ export default class Utils {
      * @returns THREE.Vector3
      */
     translate2dTo3d = (posX, posY) => {
-        var vec = new Vector3();
-        var pos = new Vector3();
+        let vec = new Vector3();
+        let pos = new Vector3();
     
         // calculate position in normalized device coordinates (-1 to +1) for both components
         vec.set(
@@ -50,7 +50,7 @@ export default class Utils {
     
         vec.sub( this.camera.position ).normalize();
     
-        var distance = - this.camera.position.z / vec.z;
+        let distance = - this.camera.position.z / vec.z;
     
         pos.copy( this.camera.position ).add( vec.multiplyScalar( distance ) );
         // console.log("translated: (" + posX + ", " + posY + ") to (" + pos.x + ", " + pos.y + ")");
