@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import Utils from './modules/utils';
 import ParticleSystem from './modules/particleSystem';
 
-let utils, renderer, camera, cube, material, scene;
+let utils, renderer, camera, scene;
 let particleSystem, particleSystemPosX, particleSystemPosY, particleSystemPosZ, showParticleSystem;
 
 //----------------------------------------------------------------
@@ -17,19 +17,9 @@ let verticalAcceleration = 0;
 
 function animate() {
 	requestAnimationFrame( animate );
-
-  if(cube.position.x >= 1.7 || cube.position.x <= -1.7){
-    horizontalAcceleration *= -1;
-  }
-  if(cube.position.y >= 3.7 || cube.position.y <= -3.7){ 
-    verticalAcceleration *= -1;
-  }
-
-  cube.position.x += 0.001*horizontalAcceleration;
-  cube.position.y -= 0.001*verticalAcceleration;
  
   // scene.add(particleSystem.addParticle());
-	particleSystem.run();
+	particleSystem.run(horizontalAcceleration, verticalAcceleration);
 
 	renderer.render( scene, camera );
 }
@@ -89,27 +79,20 @@ const setScreenEdges = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
 }
 
 const init = () => {
+  const SCREEN_WIDTH = window.innerWidth;
+  const SCREEN_HEIGHT = window.innerHeight;
 
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+  camera.position.z = 5;
 
   renderer = new THREE.WebGLRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
 
-  // This material is used in all cubes, for the POC
-  material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-  const geometry = new THREE.BoxGeometry( 0.4, 0.4, 0.4 );
-  cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
-
-  camera.position.z = 5;
-
   utils = new Utils(camera);
   
-  const SCREEN_WIDTH = window.innerWidth;
-  const SCREEN_HEIGHT = window.innerHeight;
-
+  
 	particleSystem = new ParticleSystem(new THREE.Vector3(0, 0, 0), 0.3);
   scene.add(particleSystem.addParticle());
   
