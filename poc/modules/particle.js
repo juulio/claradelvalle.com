@@ -54,16 +54,15 @@ export default class Particle {
             this.pos.x = topLeft.x + this.radius; // Prevent from leaving the canvas from the left side
             this.vel.x *= -1;
         } else if (this.pos.x + this.radius > bottomRight.x) {
-            // console.log("right");
             this.pos.x = bottomRight.x - this.radius; // Prevent from leaving the canvas from the right side
             this.vel.x *= -1;
         }
     
-        if (this.pos.y - this.radius < topLeft.y) {
-            this.pos.y = this.radius; // Prevent from leaving the canvas from the top
+        if (this.pos.y + this.radius > topLeft.y) {
+            this.pos.y = topLeft.y - this.radius; // Prevent from leaving the canvas from the top
             this.vel.y *= -1;
-        } else if (this.pos.y + this.radius > bottomRight.y) {
-            this.pos.y = bottomRight.y - this.radius; // Prevent from leaving the canvas from the bottom
+        } else if (this.pos.y - this.radius < bottomRight.y) {
+            this.pos.y = bottomRight.y + this.radius; // Prevent from leaving the canvas from the bottom
             this.vel.y *= -1;
         }
         this.particleMesh.position.set(this.pos.x, this.pos.y, 0);

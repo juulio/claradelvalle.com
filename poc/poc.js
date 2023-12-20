@@ -99,7 +99,6 @@ const init = () => {
   utils = new Utils(camera);
   TOP_LEFT = utils.translate2dTo3d(0, 0);
   BOTTOM_RIGHT = utils.translate2dTo3d(SCREEN_WIDTH, SCREEN_HEIGHT);
-  
   // stats = new Stats()
   document.body.appendChild(stats.dom)
   
