@@ -11,6 +11,7 @@ const demo_button = document.getElementById("start_demo");
 const splashScreen = document.querySelector('.splash');
 const SCREEN_WIDTH = window.innerWidth;
 const SCREEN_HEIGHT = window.innerHeight;
+
 const stats = new Stats();
 
 let horizontalAcceleration = 0,
@@ -74,9 +75,9 @@ const setScreenEdges = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
 
 function animate() {
 	requestAnimationFrame( animate );
-
   TOP_LEFT = utils.translate2dTo3d(0, 0);
   BOTTOM_RIGHT = utils.translate2dTo3d(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	sphereParticle.update(horizontalAcceleration, verticalAcceleration, TOP_LEFT, BOTTOM_RIGHT);
 
 	renderer.render( scene, camera );
@@ -103,7 +104,7 @@ const init = () => {
   // stats = new Stats()
   document.body.appendChild(stats.dom)
   
-  sphereRadius = 0.3;
+  sphereRadius = 0.28;
   startingPosition = new THREE.Vector3(0, 0, 0);
   sphereParticle = new Particle(startingPosition, sphereRadius);
   scene.add(sphereParticle.particleMesh);
