@@ -36,7 +36,7 @@ export default class Particle {
     // }
 
     update(horizontalAcceleration, verticalAcceleration, topLeft, bottomRight) {
-        this.acc.add(new Vector2( 0.01*horizontalAcceleration/25, 0.01*verticalAcceleration/25));
+        this.acc.add(new Vector2( 0.007*horizontalAcceleration/35, 0.007*-verticalAcceleration/35));
         // console.log(this.acc)
         this.vel.add(this.acc);
         this.pos.add(this.vel);
