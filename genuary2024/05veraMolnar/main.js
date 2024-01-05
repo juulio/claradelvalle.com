@@ -90,17 +90,15 @@ const init = () => {
   
   window.addEventListener( 'resize', onWindowResize, false );
   
-  onWindowResize(SCREEN_WIDTH, SCREEN_HEIGHT);
   animate();
 }
 
 //----------------------------------------------------------------
 // Resize functionality
-const onWindowResize = (SCREEN_WIDTH, SCREEN_HEIGHT) => {
-  camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
-  camera.updateProjectionMatrix();  
-  renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+const onWindowResize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
 }
-
 
 init();
