@@ -11,7 +11,9 @@ const SCREEN_WIDTH = window.innerWidth;
 const SCREEN_HEIGHT = window.innerHeight;
 
 const stats = new Stats();
-const squares = 7;
+const squares = 6;
+const squareWidth = 0.1;
+const squareHeight = 0.1;
 
 let TOP_LEFT,
     BOTTOM_RIGHT;
@@ -20,10 +22,7 @@ let TOP_LEFT,
 
 function animate() {
 	requestAnimationFrame( animate );
-
-  
-
-  controls.update();
+  // controls.update();
 	renderer.render( scene, camera );
   stats.update()
 }
@@ -38,11 +37,11 @@ const init = () => {
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
 
-  controls = new OrbitControls( camera, renderer.domElement );
-  controls.update();
+  // controls = new OrbitControls( camera, renderer.domElement );
+  // controls.update();
   
   
-  const geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.01 ); 
+  const geometry = new THREE.BoxGeometry( squareWidth, squareHeight, 0.01 ); 
 
   const colors = [
     0xff0000,
@@ -60,31 +59,37 @@ const init = () => {
       transparent: true,
       color: colors[posX % 7],}
     );
-    material.opacity = 0.1;
+    material.opacity = 0.03;
 
     const cubeMesh = new THREE.InstancedMesh( geometry, material, squares);
   
-    cubeMesh.position.x = posX / 7;
-    cubeMesh.position.y = posY / 7;
-    // cubeMesh.rotation.x += posX * rotation;
+    cubeMesh.position.x = (posX - squares / 2) * squareWidth + squareWidth / 2;
+    cubeMesh.position.y = (posY - squares / 2) * squareHeight + squareHeight / 2;
     cubeMesh.rotation.z += posY * rotation;
-    scene.add( cubeMesh );
+    cubeMesh.geometry.center();
+
+    return cubeMesh;
   }
   
+  const group = new THREE.Group();
+
   for ( let i = 0; i < squares; i++ ) {
     for ( let j = 0; j < squares; j++) {
-      renderCube(i, j, 1);
-      renderCube(i, j, 2);
-      renderCube(i, j, 3);
+      group.add(renderCube(i, j, 1));
+      group.add(renderCube(i, j, 2));
+      group.add(renderCube(i, j, 3));
     }
-
   }
 
-  // scene.add( mesh );
-
+  
   utils = new Utils(camera);
-  TOP_LEFT = utils.translate2dTo3d(0, 0);
-  BOTTOM_RIGHT = utils.translate2dTo3d(SCREEN_WIDTH, SCREEN_HEIGHT);
+  TOP_LEFT = utils.translate2dTo3d(600, 0);
+  BOTTOM_RIGHT = utils.translate2dTo3d(SCREEN_WIDTH, SCREEN_HEIGHT-500);
+
+  group.position.x = TOP_LEFT.x;
+  group.position.y = BOTTOM_RIGHT.y;
+  scene.add( group );
+
   // stats = new Stats()
   document.body.appendChild(stats.dom)
   
