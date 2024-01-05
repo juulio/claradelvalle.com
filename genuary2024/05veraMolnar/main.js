@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import Utils from './modules/utils';
-import Stats from 'three/examples/jsm/libs/stats.module'
+// import Stats from 'three/examples/jsm/libs/stats.module'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 let cube, utils, renderer, camera, controls, scene;
@@ -10,7 +10,7 @@ let cube, utils, renderer, camera, controls, scene;
 const SCREEN_WIDTH = window.innerWidth;
 const SCREEN_HEIGHT = window.innerHeight;
 
-const stats = new Stats();
+// const stats = new Stats();
 const squares = 6;
 const squareWidth = 0.1;
 const squareHeight = 0.1;
@@ -24,7 +24,7 @@ function animate() {
 	requestAnimationFrame( animate );
   // controls.update();
 	renderer.render( scene, camera );
-  stats.update()
+  // stats.update()
 }
 
 const init = () => {
@@ -91,7 +91,7 @@ const init = () => {
   scene.add( group );
 
   // stats = new Stats()
-  document.body.appendChild(stats.dom)
+  // document.body.appendChild(stats.dom)
   
   window.addEventListener( 'resize', onWindowResize, false );
   
