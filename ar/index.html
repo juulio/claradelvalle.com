@@ -23,13 +23,11 @@
 
 <script>
 
-var scene, camera, renderer, clock, deltaTime, totalTime;
+let scene, camera, renderer, clock, deltaTime, totalTime;
+let arToolkitSource, arToolkitContext;
+let markerRoot1;
 
-var arToolkitSource, arToolkitContext;
-
-var markerRoot1, markerRoot2;
-
-var mesh1;
+let mesh1;
 
 initialize();
 animate();
@@ -131,6 +129,8 @@ function update()
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
+
+    mesh1.rotation.y += 0.01;  
 }
 
 
