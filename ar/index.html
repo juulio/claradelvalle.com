@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Hello, AR Cube!</title>
+	<title>AR using marker</title>
 	<!-- include three.js library -->
 	<script src='../js/vendor/three.min.js'></script>
 	<!-- include jsartookit -->
@@ -16,13 +16,8 @@
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 
-<!-- 
-  Example created by Lee Stemkoski: https://github.com/stemkoski
-  Based on the AR.js library and examples created by Jerome Etienne: https://github.com/jeromeetienne/AR.js/
--->
-
-<script>
-
+<script type="module">
+import { GLTFLoader } from "./libs/GLTFLoader.js";
 let scene, camera, renderer, clock, deltaTime, totalTime;
 let arToolkitSource, arToolkitContext;
 let markerRoot1;
@@ -32,8 +27,27 @@ let mesh1;
 initialize();
 animate();
 
-function initialize()
-{
+function load3dModel() {
+    let modelObject,
+        modelUrl = './models/bluey/scene.gltf',
+        modelLoader = new GLTFLoader ();
+
+    modelLoader.load( modelUrl, 
+    function ( gltf ) {
+        modelObject =  gltf.scene;
+    
+    }, 
+    function ( xhr ) {
+        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    },
+    function ( error ) {
+        // console.error( error );
+    }
+);
+}
+
+function initialize(){
+    load3dModel();
 	scene = new THREE.Scene();
 
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
@@ -67,11 +81,11 @@ function initialize()
 
 	function onResize()
 	{
-		arToolkitSource.onResize()	
-		arToolkitSource.copySizeTo(renderer.domElement)	
+		arToolkitSource.onResizeElement()	
+		arToolkitSource.copyElementSizeTo(renderer.domElement)	
 		if ( arToolkitContext.arController !== null )
 		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
+			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)	
 		}	
 	}
 
@@ -124,8 +138,7 @@ function initialize()
 }
 
 
-function update()
-{
+function update(){
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
@@ -134,14 +147,12 @@ function update()
 }
 
 
-function render()
-{
+function render(){
 	renderer.render( scene, camera );
 }
 
 
-function animate()
-{
+function animate(){
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
