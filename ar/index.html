@@ -18,7 +18,9 @@
 
 <script type="module">
 import { GLTFLoader } from "./libs/GLTFLoader.js";
-let scene, camera, renderer, clock, deltaTime, totalTime;
+import { OrbitControls } from './libs/OrbitControls.js';
+
+let scene, camera, renderer, clock, deltaTime, totalTime, controls;
 let arToolkitSource, arToolkitContext;
 let markerRoot1;
 
@@ -33,23 +35,25 @@ function load3dModel() {
         modelLoader = new GLTFLoader ();
 
     modelLoader.load( modelUrl, 
-    function ( gltf ) {
-        modelObject =  gltf.scene;
-    
-    }, 
-    function ( xhr ) {
-        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    },
-    function ( error ) {
-        // console.error( error );
-    }
-);
+        function ( gltf ) {
+            scene.add( gltf.scene );
+            modelObject =  gltf.scene;
+
+        }, 
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        function ( error ) {
+            // console.error( error );
+        }
+    );
+    return modelObject;
 }
 
 function initialize(){
-    load3dModel();
-	scene = new THREE.Scene();
-
+    scene = new THREE.Scene();
+    // scene.add( new THREE.AxesHelper( 16 ) ); 
+    
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
 	scene.add( ambientLight );
 				
@@ -70,6 +74,7 @@ function initialize(){
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
+    controls = new OrbitControls( camera, renderer.domElement );
 	
 	////////////////////////////////////////////////////////////
 	// setup arToolkitSource
@@ -135,6 +140,7 @@ function initialize(){
 	mesh1.position.y = 0.5;
 	
 	markerRoot1.add( mesh1 );
+    // markerRoot1.add ( load3dModel().mesh1 );
 }
 
 
@@ -143,6 +149,7 @@ function update(){
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
 
+    controls.update();
     mesh1.rotation.y += 0.01;  
 }
 
